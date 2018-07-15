@@ -7,9 +7,9 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
-                <h1 class="page-header">
-                    Tags!
-                </h1>
+                <h3 class="page-header">
+                    Blog post by tag <b><?php echo str_replace('%20', ' ', $tag); ?></b>
+                </h3>
 								<?php if(!empty($record)):?>
 									<?php foreach($record as $row): ?>
 										<!-- First Blog Post -->

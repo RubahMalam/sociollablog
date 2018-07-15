@@ -75,7 +75,8 @@ class Home extends CI_Controller{
 		$data = array(
 				'record' => $this->Post_model->read_by_tags('tbl_post', $limit, $offset,$tag),
 				'komentar' => $this->Post_model->read_komen('comment'),
-				'pagination' => $this->pagination->create_links()
+				'pagination' => $this->pagination->create_links(),
+				'tag' => $tag
 			);
 		$this->load->view('post_by_tags',$data);
 	}
