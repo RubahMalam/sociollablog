@@ -4,9 +4,10 @@
 
 			<div class="col-md-8">
             <!-- Tambah Testi Column -->
+				
                 <h3 class="page-header">Tambah Artikel</h3>
 				<?php echo form_open_multipart(base_url("front/tambah_artikel/kirim"), 'class="form-horizontal"', 'method="POST"');?>	
-				
+					<?php echo validation_errors();  ?> 
 					<div class="form-group">
 						<label class="control-label col-sm-2">Judul Artikel:</label>
 						<div class="col-sm-10">
@@ -24,6 +25,13 @@
 						<div class="col-sm-10">
 							<textarea class="form-control" name="content"></textarea>
 						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">Tags:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="tags" placeholder="Pisahkan tags dengan tanda koma. Mis : Teknologi,Kehidupan" >
+							<small id="tagshelp" class="form-text text-muted">Pisahkan tags dengan tanda koma. Mis : Teknologi,Kehidupan</small>
+						</div>
 					</div>					
 					<div class="form-group">
 						<label class="control-label col-sm-2">Featured Image:</label>
@@ -31,6 +39,7 @@
 							<input type="file" class="" name="userfile" size="20">
 						</div>
 					</div>						
+					<hr>
 					<button type="submit" name="submit" value="Tambah Artikel" class="btn btn-danger">Tambah Artikel</button>
 				<?php echo form_close();?>
 			</div>	

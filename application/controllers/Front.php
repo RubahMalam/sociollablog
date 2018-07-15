@@ -20,7 +20,7 @@ class Front extends CI_Controller{
 		$this->load->library('form_validation');
 		if($action=='kirim'){
 			$post = $this->input->post();			
-
+			
 			$this->form_validation->set_rules('title', 'Judul Artikel', 'required');
 			$this->form_validation->set_rules('author', 'Penulis', 'required');
 			$this->form_validation->set_rules('content', 'Isi artikel', 'required');
@@ -28,7 +28,7 @@ class Front extends CI_Controller{
 			$this->form_validation->set_error_delimiters('<p class="alert">', '</p>');
 
 			if($this->form_validation->run() == FALSE){
-				$this->load->view('tambah_artikel');
+                $this->load->view('admin/tambah_artikel');
 			}
 			else{
 
@@ -39,30 +39,34 @@ class Front extends CI_Controller{
 				$config['max_height'] = 768;
 
 				$this->load->library('upload', $config);
-				if($this->upload->do_upload('userfile')){
-					$upload_data = $this->upload->data();
-					$featured_image = base_url().'uploads/'.$upload_data['file_name'];
-					
-					$this->load->model('Post_model');
-
-					$data = array(
-							'title' => $post['title'],
-							'author' => $post['author'],
-							'date' => date('Y-m-d'),
-							'content' => $post['content'],
-							'featured_image' => $featured_image
-						);
-
-					$this->Post_model->create('tbl_post',$data);
-					$this->load->view('admin/tambah_artikel_berhasil',$data);	
-
-				}				
-				else{
-					$data = array(
-						'error' => $this->upload->display_errors() 
-						);
-					$this->load->view('admin/tambah_artikel',$data);
+				$upload_data = $this->upload->data();
+				$featured_image = base_url().'uploads/default.jpg';
+				if(!empty($upload_data)) {
+					if($this->upload->do_upload('userfile')){
+						$featured_image = base_url().'uploads/'.$upload_data['file_name'];
+					} else {
+						$data = array(
+							'error' => $this->upload->display_errors() 
+							);
+						$this->load->view('admin/tambah_artikel',$data);
+					}
 				}
+				$this->load->model('Post_model');
+
+				$data = array(
+						'title' => $post['title'],
+						'author' => $post['author'],
+						'date' => date('Y-m-d'),
+						'content' => $post['content'],
+						'tags' => $post['tags'],
+						'featured_image' => $featured_image
+					);
+
+				$this->Post_model->create('tbl_post',$data);
+				
+				//$this->load->view('admin/tambah_artikel_berhasil',NULL);	
+				redirect(base_url('front/daftar_artikel'));
+				
 
 				/*
 

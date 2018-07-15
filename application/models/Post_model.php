@@ -10,7 +10,25 @@ class Post_model extends CI_Model{
 	}
 
 	public function create($table,$data){
+		$tags = explode(',',$data['tags']);
+		
+		unset($data['tags']);
 		$this->db->insert($table,$data);
+		
+		//insert tags
+		$this->db->select('max(id) as id');
+		$this->db->from('tbl_post');
+		$max_id = $this->db->get()->result()[0]->id;
+		
+		foreach($tags as $tag) {
+			$data = array(
+						'tag' => $tag,
+						'post_id' => $max_id, 
+					);
+			$this->db->insert('tags',$data);
+		}
+		return NULL;
+		
 	}
 
 	// Blog Home
@@ -36,7 +54,7 @@ class Post_model extends CI_Model{
 	// Artikel berdasarkan tags
 	public function read_by_tags($table,$limit,$offset,$tag){
 		$this->db->from($table);
-		$this->db->join('tags', 'tags.post_id = '.$table.'.ID and tags.tag ="'.$tag.'"');
+		$this->db->join('tags', 'tags.post_id = '.$table.'.ID and tags.tag ="'.str_replace('%20', ' ', $tag).'"','INNER',FALSE);
 		$this->db->limit($limit,$offset);
 		$this->db->order_by('ID', 'DESC');
 		$query = $this->db->get();

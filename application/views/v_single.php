@@ -101,7 +101,7 @@
                 <!-- Side Widget Well -->
                 <div class="well">
                     <h4>Tentang Guo blog</h4>
-                    <p><b>Guo blog</b> <i>adalah sebuah blog sederhana yang dibuat dengan menggunakan PHP Codeigniter dan bootstrap. Di dalam Guo blog kamu bisa menulis dan mengubah artikel. Oh iya, disetiap artikel kamu juga bisa memberi komentar loh.</i></p>
+                    <p><b>Guo blog</b> <i>adalah sebuah blog sederhana yang dibuat dengan menggunakan PHP Codeigniter dan bootstrap. Di dalam Guo blog kamu bisa menulis dan mengubah artikel. Di setiap artikel kamu bisa menambahkan tags, dan dapat mencari artikel berdasarkan tag. Oh iya, disetiap artikel kamu juga bisa memberi komentar loh.</i></p>
                 </div>
 
             </div>
